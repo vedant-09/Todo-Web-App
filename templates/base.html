@@ -4,34 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>todo website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 </head>
+</head>
 
 <body>
-    <div style="margin-top: 50px;" class=" ui container">
-    <h1 class="ui center aligned header"> Todo App</h1>
+    <div class="container">
+        <div class="todo-app">
+            <h1> Todo List <img src="{{ url_for('static', filename='images/icon1.png') }}" alt="Icon"></h1>
+                <div>
+                    <form class="form1" action="/add" method="post">
+                        
+                        <input class="" type="text" name="title" placeholder="enter todo">
+                        <button class="" type="submit">add</button>
+                        
+                    </form>
+                </div>
 
-    <form class=" ui form" action="/add" method="post">
-        <div>
-            <label> Todo</label>
-            <input class="ui input" type="text" name="title" placeholder="enter todo">
-            <button  class="ui green button" type="submit">add</button>
-        </div>
-    </form>
+            {% for todo in todo_list %}
+               
+                    <ul>
+                        <li>
+                            {{todo.id}} | {{todo.title}} <span> <a class="ui #555 button"  href="/delete/{{todo.id}}">Delete</a> </span>
+                        </li>
+                    </ul>
 
-
-    {% for todo in todo_list %}
-    <div class="ui segment">
-        <p class="ui header">{{todo.id}} | {{todo.title}}</p>
-
-        <a class="ui red button"href="/delete/{{todo.id}}">Delete</a>
+                   
+                
+            {% endfor %}
+            <a class="fluid ui button" href="/deleteall">Delete all</a>
+       </div>
     </div>
-    {% endfor %}
-    <a class="ui red button"href="/deleteall">Delete all</a>
-    
-</div>
 </body>
 
 </html>
